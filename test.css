@@ -1,0 +1,44 @@
+body,
+code {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+#wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+#logo {
+  text-indent: -9999px;
+  background: url('/assets/image/logo.png') no-repeat center;
+}
+#main {
+  padding-top: 100px;
+}
+.section {
+  overflow: hidden;
+  text-overflow: hidden;
+  max-width: 500px;
+}
+.section h2 {
+  font-size: 20px;
+  text-align: center;
+}
+.section .content {
+  line-height: 1.5;
+  font-size: 14px;
+  white-space: nowrap;
+}
+#footer {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
+      "@service/*": ["service/*"],
+      "@store/*": ["store/*"],
+      "@hook/*": ["hook/*"],
+      "@component/*": ["component/*"],
+      "@image/*": ["assets/image/*"],
+      "@font/*": ["assets/font/*"],
+      "@icon/*": ["assets/icon/*"],
+      "@thought-image/*": ["assets/posts/thought-image/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "styles/globals.js", "styles/mixinx.js", "styles/mixinx.js"],
+  "exclude": ["node_modules"]
+}
