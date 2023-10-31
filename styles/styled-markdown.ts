@@ -5,6 +5,13 @@ const StyledMarkdown = styled.div`
   > * {
     margin: 10px 0;
   }
+  h4 {
+    opacity: 0;
+    transition: all 500ms;
+    &:hover {
+      opacity: 1;
+    }
+  }
   h1,
   h2,
   h3,

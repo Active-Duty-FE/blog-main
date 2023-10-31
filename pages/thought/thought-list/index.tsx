@@ -14,7 +14,7 @@ const ThoughtList: FC<IProps> = memo(({ thoughts }) => {
     <Wrapper>
       <ul className="post-list">
         {thoughts?.map((item, index) => (
-          <li className="item">
+          <li key={item} className="item">
             <Link href={`/thought/${item.split('.')[0]}`}>
               <Image src={`/thought-image/${item.split('.')[0]}.jpeg`} alt={item} width={1000} height={300} />
             </Link>
