@@ -8,7 +8,8 @@ import { Post } from 'type'
 import StyledMarkdown from '@styles/styled-markdown'
 import Wrapper from './style'
 import ThoughtList from './thought-list'
-
+import { promises as fsPromises } from 'fs'
+const path = require('path')
 interface IProps {
   children?: ReactNode
   thought: Post
@@ -35,9 +36,11 @@ const PostDetail: FC<IProps> = memo((props) => {
   )
 })
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetchAllThoughts()
+  // const res = await fetchAllThoughts()
+  const folderPath = path.join(process.cwd(), 'assets/posts/thought')
+  const resultAll = await fsPromises.readdir(folderPath)
   return {
-    paths: res.data.map((item, index) => ({
+    paths: resultAll.map((item, index) => ({
       params: {
         title: item.split('.')[0]
       }
@@ -46,14 +49,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetchThought(context.params?.title as string)
-  console.log(res, 'res')
+  // const res = await fetchThought(context.params?.title as string)
+  // console.log(res, 'res')
 
-  const resAll = await fetchAllThoughts()
+  // const resAll = await fetchAllThoughts()
+  const filePath = path.join(process.cwd(), 'assets/posts/thought', context.params?.title)
+  const result = await fsPromises.readFile(filePath + '.md')
+  const folderPath = path.join(process.cwd(), 'assets/posts/thought')
+  const resultAll = await fsPromises.readdir(folderPath)
   return {
     props: {
-      thought: res.data,
-      thoughts: resAll.data
+      thought: result.toString(),
+      thoughts: resultAll
     }
   }
 }

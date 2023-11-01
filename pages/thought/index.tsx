@@ -4,7 +4,8 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import ThoughtList from './thought-list'
 import Layout from '@component/layout'
-
+import { promises as fsPromises } from 'fs'
+const path = require('path')
 interface IProps {
   children?: ReactNode
   thoughts: any[]
@@ -18,12 +19,13 @@ const Thought: FC<IProps> = memo(({ thoughts }) => {
   )
 })
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetchAllThoughts()
-  console.log(res, 'res')
-
+  // const res = await fetchAllThoughts()
+  // console.log(res, 'res')
+  const folderPath = path.join(process.cwd(), 'assets/posts/thought')
+  const resultAll = await fsPromises.readdir(folderPath)
   return {
     props: {
-      thoughts: res.data
+      thoughts: resultAll
     }
   }
 }

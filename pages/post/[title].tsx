@@ -8,7 +8,8 @@ import { Post } from 'type'
 import StyledMarkdown from '@styles/styled-markdown'
 import PostList from './post-list/post-list'
 import Wrapper from './style'
-
+import { promises as fsPromises } from 'fs'
+const path = require('path')
 interface IProps {
   children?: ReactNode
   post: Post
@@ -35,9 +36,10 @@ const PostDetail: FC<IProps> = memo((props) => {
   )
 })
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetchAllPosts()
+  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
+  const resultAll = await fsPromises.readdir(folderPath)
   return {
-    paths: res.data.map((item) => ({
+    paths: resultAll.map((item) => ({
       params: {
         title: item.split('.')[0]
       }
@@ -46,14 +48,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetchPost(context.params?.title as string)
-  console.log(res, 'res')
-
-  const resAll = await fetchAllPosts()
+  // const res = await fetchPost(context.params?.title as string)
+  // const resAll = await fetchAllPosts()
+  const filePath = path.join(process.cwd(), 'assets/posts/fe', context.params?.title)
+  const result = await fsPromises.readFile(filePath.toString() + '.md')
+  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
+  const resultAll = await fsPromises.readdir(folderPath)
   return {
     props: {
-      post: res.data,
-      posts: resAll.data
+      post: result.toString(),
+      posts: resultAll
     }
   }
 }

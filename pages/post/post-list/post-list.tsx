@@ -12,12 +12,13 @@ const PostList: FC<IProps> = memo(({ posts }) => {
   return (
     <Wrapper>
       <ul className="post-list">
-        {posts.map((item: string) => (
-          <li className="item" key={item}>
-            <Link href={`/post/${item.split('.')[0]}`}>{item.split('.')[0]}</Link>
-            <div className="line"></div>
-          </li>
-        ))}
+        {posts &&
+          posts.map((item: string) => (
+            <li className="item" key={item}>
+              <Link href={`/post/${item.split('.')[0]}`}>{item.split('.')[0]}</Link>
+              <div className="line"></div>
+            </li>
+          ))}
       </ul>
     </Wrapper>
   )
