@@ -2,6 +2,15 @@ import { mobile } from '@styles/mixins'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
+  @keyframes flash {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+      transform: scale(1);
+    }
+  }
   min-width: 100%;
   ul.post-list {
     display: flex;
@@ -36,16 +45,6 @@ const Wrapper = styled.div`
       background-color: #d3d3d3;
       transform-origin: 0 0;
       transform: scale(0);
-
-      @keyframes flash {
-        0% {
-          width: 0;
-        }
-        100% {
-          width: 100%;
-          transform: scale(1);
-        }
-      }
     }
   }
 `

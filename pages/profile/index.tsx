@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import Wrapper from './styled'
+import Wrapper, { StyledLink } from './styled'
 import Layout from '@component/layout'
 import Title from '@component/title'
 import Slider, { Settings } from 'react-slick'
@@ -11,6 +11,8 @@ import { Ultra } from 'next/font/google'
 import ListItem from '@component/list-item'
 import List from '@component/list'
 import Table from '@component/table'
+import { skillList } from './data'
+import Link from 'next/link'
 interface IProps {
   children?: ReactNode
 }
@@ -86,46 +88,19 @@ const Profile: FC<IProps> = memo(() => {
                 <col width="auto" />
               </colgroup>
               <tbody>
-                <tr>
-                  <th>Basic</th>
-                  <td>HTML, CSS, Javascript, ECMAScript6+, Typescript</td>
-                </tr>
-                <tr>
-                  <th>Style</th>
-                  <td>CSS3, LESS, SCSS, styled-components, bootstrap, tailwind-css, Material-UI, Ant Design</td>
-                </tr>
-                <tr>
-                  <th>Framework</th>
-                  <td>React, Vue</td>
-                </tr>
-                <tr>
-                  <th>Network</th>
-                  <td>XMLHttpRequest, Axios, fetch, react-query, socket-io, protobuf</td>
-                </tr>
-                <tr>
-                  <th>State Management</th>
-                  <td>redux, react-redux, reduxjs/toolkit, vuex, pinia[recoil, mobx]</td>
-                </tr>
-                <tr>
-                  <th>Form Control</th>
-                  <td>redux, react-redux, reduxjs/toolkit, vuex, pinia[recoil, mobx]</td>
-                </tr>
-                <tr>
-                  <th>Build</th>
-                  <td>webpack, vite, babel</td>
-                </tr>
-                <tr>
-                  <th>Back-end</th>
-                  <td>HTML, CSS, Javascript, ECMAScript6+, Typescript</td>
-                </tr>
-                <tr>
-                  <th>Server</th>
-                  <td>jenkins, aws</td>
-                </tr>
-                <tr>
-                  <th>Collaboration</th>
-                  <td>git, slack, figma, zeplin, jira, confluence</td>
-                </tr>
+                {skillList.map((item) => (
+                  <tr>
+                    <th>{item.label}</th>
+                    <td>
+                      {item.skills.map((item, index) => (
+                        <StyledLink href={item.website} target="blank">
+                          {index !== 0 && ' '} {item.name}
+                          <span className="line"></span>
+                        </StyledLink>
+                      ))}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Table>
