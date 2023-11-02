@@ -33,7 +33,7 @@ export const skillList: SkillList = [
     ]
   },
   {
-    label: 'Frameworks',
+    label: 'Framework',
     skills: [
       { name: 'React', website: 'https://react.dev/learn' },
       { name: 'Vue', website: 'https://vuejs.org/guide/introduction.html' },

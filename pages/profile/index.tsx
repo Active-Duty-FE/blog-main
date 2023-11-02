@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { Fragment, memo, useEffect, useState } from 'react'
 import type { FC, ReactNode } from 'react'
 import Wrapper, { StyledLink } from './styled'
 import Layout from '@component/layout'
@@ -89,17 +89,19 @@ const Profile: FC<IProps> = memo(() => {
               </colgroup>
               <tbody>
                 {skillList.map((item) => (
-                  <tr>
-                    <th>{item.label}</th>
-                    <td>
-                      {item.skills.map((item, index) => (
-                        <StyledLink href={item.website} target="blank">
-                          {index !== 0 && ' '} {item.name}
-                          <span className="line"></span>
-                        </StyledLink>
-                      ))}
-                    </td>
-                  </tr>
+                  <Fragment key={item.label}>
+                    <tr>
+                      <th>{item.label}</th>
+                      <td>
+                        {item.skills.map((item, index) => (
+                          <StyledLink href={item.website} target="blank">
+                            {index !== 0 && ' '} {item.name}
+                            <span className="line"></span>
+                          </StyledLink>
+                        ))}
+                      </td>
+                    </tr>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
