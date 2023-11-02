@@ -108,3 +108,6 @@ export const skillList: SkillList = [
     ]
   }
 ]
+export default function CatchBuildError() {
+  return <div></div>
+}

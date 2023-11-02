@@ -11,7 +11,7 @@ import { Ultra } from 'next/font/google'
 import ListItem from '@component/list-item'
 import List from '@component/list'
 import Table from '@component/table'
-import { skillList } from './data'
+import { skillList } from './skill-data'
 import Link from 'next/link'
 interface IProps {
   children?: ReactNode
