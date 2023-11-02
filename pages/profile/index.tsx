@@ -94,7 +94,7 @@ const Profile: FC<IProps> = memo(() => {
                       <th>{item.label}</th>
                       <td>
                         {item.skills.map((item, index) => (
-                          <StyledLink href={item.website} target="blank">
+                          <StyledLink key={item.name} href={item.website} target="blank">
                             {index !== 0 && ' '} {item.name}
                             <span className="line"></span>
                           </StyledLink>
