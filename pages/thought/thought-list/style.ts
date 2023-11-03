@@ -17,11 +17,18 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
     align-items: center;
     text-align: center;
+    @media (max-width: 820px) {
+      flex-direction: column;
+    }
     .item {
       cursor: pointer;
       position: relative;
       width: 40%;
       margin: 0 2px 15px 4%;
+      @media (max-width: 820px) {
+        width: 100%;
+        margin-left: 0;
+      }
       &:hover {
         background-color: rgba(255, 255, 255, 0.2);
       }

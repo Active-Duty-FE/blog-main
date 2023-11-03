@@ -11,6 +11,10 @@ const Wrapper = styled.div<IProps>`
     margin: 8px 0 0 8px;
     font-size: 33px;
     font-family: ${architectsDaughter.style.fontFamily};
+    @media (max-width: 820px) {
+      text-indent: 0;
+      text-align: center;
+    }
     &::before {
       content: '';
       position: absolute;
@@ -21,6 +25,9 @@ const Wrapper = styled.div<IProps>`
       background-color: #d3d3d3;
       transform: rotate(45deg);
       animation: rotateInfinite linear 7000ms infinite;
+      @media (max-width: 820px) {
+        left: 5px;
+      }
     }
     &::after {
       content: '';
@@ -32,6 +39,9 @@ const Wrapper = styled.div<IProps>`
       background-color: #d3d3d3;
       transform: rotate(-45deg);
       animation: rotateInfinite2 linear 7000ms infinite;
+      @media (max-width: 820px) {
+        left: 5px;
+      }
     }
   }
 

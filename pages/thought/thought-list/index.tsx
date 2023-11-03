@@ -3,12 +3,14 @@ import type { FC, ReactNode } from 'react'
 import Wrapper from './style'
 import Link from 'next/link'
 import Image from 'next/image'
+import useDevice from '@hook/device'
 interface IProps {
   children?: ReactNode
   thoughts: any[]
 }
 
 const ThoughtList: FC<IProps> = memo(({ thoughts }) => {
+  const device = useDevice()
   return (
     <Wrapper>
       <ul className="post-list">

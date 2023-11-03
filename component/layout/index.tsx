@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@hook/redux'
 import Mask from '@component/mask'
 import { shallowEqual } from 'react-redux'
 import Footer from '@component/footer'
+import useDevice from '@hook/device'
 
 interface IProps {
   children?: ReactNode
@@ -23,13 +24,7 @@ const Layout: FC<IProps> = memo((props) => {
   const menuBarClickHandle = () => {
     setMenuOpen(true)
   }
-  useEffect(() => {
-    const device = checkDevice()
-    appDispatch(updateDevice(device))
-    appDispatch(updateWidth(device))
-  }, [])
-
-  const { device } = useAppSelector((state) => ({ device: state.device.device }), shallowEqual)
+  const device = useDevice()
 
   const maskClickHandler = () => {
     setMenuOpen(false)
@@ -37,7 +32,7 @@ const Layout: FC<IProps> = memo((props) => {
   return (
     <Wrapper className="content-wrap flex direction-column">
       <div className="background indent-full">background</div>
-      {device === 'mobile' && (
+      {device?.type === 'mobile' && (
         <>
           <Sidebar open={menuOpen} />
           {menuOpen ? (
@@ -49,7 +44,7 @@ const Layout: FC<IProps> = memo((props) => {
           )}
         </>
       )}
-      {device === 'pc' && <Sidebar />}
+      {device?.type === 'pc' && <Sidebar />}
       {children}
       <Footer></Footer>
     </Wrapper>

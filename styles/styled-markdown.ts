@@ -2,6 +2,7 @@ import { mobile } from '@styles/mixins'
 import styled from 'styled-components'
 
 const StyledMarkdown = styled.div`
+  word-break: break-all;
   > * {
     margin: 10px 0;
   }

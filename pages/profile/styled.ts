@@ -6,6 +6,11 @@ const Wrapper = styled.div`
   .basic-table {
     margin-top: 20px;
   }
+  th {
+    @media (max-width: 820px) {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
 `
 export default Wrapper
 

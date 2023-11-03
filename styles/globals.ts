@@ -50,6 +50,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 18px;
     line-height: 1.5;
     background-color: rgba(0, 0, 0, 0.4);
+    @media (max-width: 820px){
+      padding: 8px;
+    }
   }
   .background {
     ${fixed('0', '0', 'unset', 'unset')};

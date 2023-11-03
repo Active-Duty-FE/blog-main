@@ -13,11 +13,13 @@ import List from '@component/list'
 import Table from '@component/table'
 import { skillList } from './skill-data'
 import Link from 'next/link'
+import useDevice from '@hook/device'
 interface IProps {
   children?: ReactNode
 }
 
 const Profile: FC<IProps> = memo(() => {
+  const device = useDevice()
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -75,6 +77,7 @@ const Profile: FC<IProps> = memo(() => {
   useEffect(() => {
     setFirst(true)
   }, [])
+
   return (
     <Layout>
       <Wrapper>
@@ -84,23 +87,41 @@ const Profile: FC<IProps> = memo(() => {
             <table className="basic-table">
               <caption>professional skills</caption>
               <colgroup>
-                <col width={200} />
+                <col width={device?.type === 'mobile' ? '100%' : 200} />
                 <col width="auto" />
               </colgroup>
               <tbody>
                 {skillList.map((item) => (
                   <Fragment key={item.label}>
-                    <tr>
-                      <th>{item.label}</th>
-                      <td>
-                        {item.skills.map((item, index) => (
-                          <StyledLink key={item.name} href={item.website} target="blank">
-                            {index !== 0 && ' '} {item.name}
-                            <span className="line"></span>
-                          </StyledLink>
-                        ))}
-                      </td>
-                    </tr>
+                    {device?.type === 'mobile' ? (
+                      <>
+                        <tr>
+                          <th>{item.label}</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            {item.skills.map((item, index) => (
+                              <StyledLink key={item.name} href={item.website} target="blank">
+                                {index !== 0 && ' '} {item.name}
+                                <span className="line"></span>
+                              </StyledLink>
+                            ))}
+                          </td>
+                        </tr>
+                      </>
+                    ) : (
+                      <tr>
+                        <th>{item.label}</th>
+                        <td>
+                          {item.skills.map((item, index) => (
+                            <StyledLink key={item.name} href={item.website} target="blank">
+                              {index !== 0 && ' '} {item.name}
+                              <span className="line"></span>
+                            </StyledLink>
+                          ))}
+                        </td>
+                      </tr>
+                    )}
                   </Fragment>
                 ))}
               </tbody>
