@@ -2,17 +2,16 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import Layout from '@component/layout'
 import type { GetStaticProps, GetStaticPaths } from 'next'
-import Markdown from 'react-markdown'
+import MarkdownIt from 'markdown-it'
 import { fetchAllPosts, fetchAllThoughts, fetchPost, fetchThought } from '@service/post'
 import { Post } from 'type'
 import StyledMarkdown from '@styles/styled-markdown'
 import Wrapper from './style'
 import ThoughtList from './thought-list'
-import { promises as fsPromises } from 'fs'
 const path = require('path')
 interface IProps {
   children?: ReactNode
-  thought: Post[]
+  thought: Post
   thoughts: Post[]
 }
 type Params = {
@@ -20,13 +19,12 @@ type Params = {
 }
 const PostDetail: FC<IProps> = memo((props) => {
   const { thought, thoughts } = props
-
+  const md = new MarkdownIt()
+  const content = md.render(thought.content)
   return (
     <Layout>
       <Wrapper>
-        <StyledMarkdown>
-          <Markdown>{thought[0].content}</Markdown>
-        </StyledMarkdown>
+        <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }}></StyledMarkdown>
         <div className="post-list">
           <h2 className="post-list-title">Menu</h2>
           <ThoughtList thoughts={thoughts} />
@@ -47,7 +45,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 export const getStaticProps: GetStaticProps = async (context) => {
-  const result = await fetchThought<Post[]>(context.params?.id as string)
+  const result = await fetchThought<Post>(context.params?.id as string)
   const resultAll = await fetchAllThoughts<Post[]>()
   return {
     props: {
