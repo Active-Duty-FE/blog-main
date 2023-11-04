@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import GlobalStyle from '@styles/globals'
 import Head from 'next/head'
 import { Suspense } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const inter = Inter({ subsets: ['latin'] })
 export default function App({ Component, ...rest }: AppProps) {
@@ -15,10 +16,10 @@ export default function App({ Component, ...rest }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Provider store={store}>
-        <Suspense fallback={<div>suspense</div>}>
+        <ErrorBoundary fallback={<div>ErrorBoundary</div>}>
           <GlobalStyle />
           <Component {...rest.pageProps} />
-        </Suspense>
+        </ErrorBoundary>
       </Provider>
     </>
   )
