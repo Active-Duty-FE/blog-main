@@ -17,8 +17,9 @@ const ThoughtList: FC<IProps> = memo(({ thoughts }) => {
         {thoughts &&
           thoughts?.map((item, index) => (
             <li key={item} className="item">
-              <Link href={`/thought/${item.split('.')[0]}`}>
-                <Image src={`/thought-image/${item.split('.')[0]}.jpeg`} alt={item} width={1000} height={300} />
+              <Link href={`/thought/${item.id}`}>
+                {item.title}
+                {/* <Image src={`/thought-image/${}`} alt={item} width={1000} height={300} /> */}
               </Link>
               <div className="line"></div>
             </li>

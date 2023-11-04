@@ -1,14 +1,65 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { promises as fsPromises } from 'fs'
-import { Response } from 'type'
-const path = require('path')
-type Posts = any[]
 
-export const handler = async (req: NextApiRequest, res: NextApiResponse<Response<Posts>>) => {
-  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  const result = await fsPromises.readdir(folderPath)
+import { SelectResult, InsertResult, UpdateResult } from '../../../type/mysql'
 
-  res.status(200).json({ data: result, code: 200 })
+import db from '@dao/connect'
+import { Post } from 'type'
+type Data = {
+  msg: string
+  data: any
 }
-
-export default handler
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+  switch (req.method) {
+    case 'GET':
+      db.query('SELECT * from post', (err, rows, fields) => {
+        if (err) throw err
+        // rest(() =>
+        res.send({
+          msg: 'gesuccess',
+          data: rows
+        })
+        // );
+      })
+      break
+    case 'POST':
+      db.query(
+        `INSERT INTO post (title, content) VALUES ('${req.body.title}', '${req.body.content}')`,
+        (err, rows, fields) => {
+          // if (err) throw err;
+          // rest(() =>
+          res.send({
+            msg: 'success',
+            data: 'add finished'
+          })
+          // );
+        }
+      )
+      break
+    case 'PUT':
+      db.query(
+        `INSERT INTO post (title, content) VALUES ('${req.body.title}', '${req.body.content}')`,
+        (err, rows, fields) => {
+          // if (err) throw err;
+          // rest(() =>
+          res.send({
+            msg: 'success',
+            data: 'add finished'
+          })
+          // );
+        }
+      )
+    case 'DELETE':
+      db.query(`DELETE FROM post WHERE id=${req.query}`, (err, rows, fields) => {
+        // if (err) throw err;
+        // rest(() =>
+        res.send({
+          msg: 'delete success',
+          data: null
+        })
+        // );
+      })
+      break
+    default:
+      break
+  }
+}

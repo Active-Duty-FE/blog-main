@@ -16,8 +16,6 @@ class AppRequst {
     })
     this.instance.interceptors.response.use((res: AxiosResponse) => {
       console.log('response interciptor')
-      console.log(res, 'res inter')
-
       return res.data
     })
   }

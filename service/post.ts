@@ -5,18 +5,18 @@ const paths = {
   getThought: '/thought'
 }
 
-export function fetchPost(title: string) {
-  return request.get<Post>(`${paths.getPost}/${title}.md`)
+export function fetchPost<T = any>(id: string) {
+  return request.get<T>(`${paths.getPost}/${id}`)
 }
 
-export function fetchAllPosts() {
-  return request.get<Post[]>(paths.getPost)
+export function fetchAllPosts<T = any>() {
+  return request.get<T>(paths.getPost)
 }
 
-export function fetchThought(title: string) {
-  return request.get<Post>(`${paths.getThought}/${title}.md`)
+export function fetchThought<T = any>(id: string) {
+  return request.get<T>(`${paths.getThought}/${id}`)
 }
 
-export function fetchAllThoughts() {
-  return request.get<Post[]>(paths.getThought)
+export function fetchAllThoughts<T = any>() {
+  return request.get<T>(paths.getThought)
 }

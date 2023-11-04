@@ -3,61 +3,56 @@ import type { FC, ReactNode } from 'react'
 import Layout from '@component/layout'
 import type { GetStaticProps, GetStaticPaths } from 'next'
 import Markdown from 'react-markdown'
-import { fetchAllPosts, fetchPost } from '@service/post'
+import { fetchAllPosts, fetchAllThoughts, fetchPost, fetchThought } from '@service/post'
 import { Post } from 'type'
 import StyledMarkdown from '@styles/styled-markdown'
-import PostList from './post-list/post-list'
 import Wrapper from './style'
+import ThoughtList from './thought-list'
 import { promises as fsPromises } from 'fs'
 const path = require('path')
 interface IProps {
   children?: ReactNode
-  post: Post
-  posts: any[]
+  thought: Post[]
+  thoughts: Post[]
 }
 type Params = {
   title: string
 }
 const PostDetail: FC<IProps> = memo((props) => {
-  const { post, posts } = props
+  const { thought, thoughts } = props
 
   return (
     <Layout>
       <Wrapper>
         <StyledMarkdown>
-          <Markdown>{post}</Markdown>
+          <Markdown>{thought[0].content}</Markdown>
         </StyledMarkdown>
         <div className="post-list">
           <h2 className="post-list-title">Menu</h2>
-          <PostList posts={posts} />
+          <ThoughtList thoughts={thoughts} />
         </div>
       </Wrapper>
     </Layout>
   )
 })
 export const getStaticPaths: GetStaticPaths = async () => {
-  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  const resultAll = await fsPromises.readdir(folderPath)
+  const resultAll = await fetchAllThoughts<Post[]>()
   return {
-    paths: resultAll.map((item) => ({
+    paths: resultAll.data.map((item, index) => ({
       params: {
-        title: item.split('.')[0]
+        id: item.id.toString()
       }
     })),
     fallback: false
   }
 }
 export const getStaticProps: GetStaticProps = async (context) => {
-  // const res = await fetchPost(context.params?.title as string)
-  // const resAll = await fetchAllPosts()
-  const filePath = path.join(process.cwd(), 'assets/posts/fe', context.params?.title)
-  const result = await fsPromises.readFile(filePath.toString() + '.md')
-  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  const resultAll = await fsPromises.readdir(folderPath)
+  const result = await fetchThought<Post[]>(context.params?.id as string)
+  const resultAll = await fetchAllThoughts<Post[]>()
   return {
     props: {
-      post: result.toString(),
-      posts: resultAll
+      thought: result.data,
+      thoughts: resultAll.data
     }
   }
 }

@@ -6,6 +6,7 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import PostList from './post-list/post-list'
 import { promises as fsPromises } from 'fs'
+import { Post } from 'type'
 const path = require('path')
 interface IProps {
   children?: ReactNode
@@ -23,11 +24,10 @@ const Post: FC<IProps> = memo(({ posts }) => {
 export default Post
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  const resultAll = await fsPromises.readdir(folderPath)
+  const resultAll = await fetchAllPosts<Post[]>()
   return {
     props: {
-      posts: resultAll
+      posts: resultAll.data
     }
   }
 }

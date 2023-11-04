@@ -25,7 +25,8 @@
       "@image/*": ["assets/image/*"],
       "@font/*": ["assets/font/*"],
       "@icon/*": ["assets/icon/*"],
-      "@thought-image/*": ["assets/posts/thought-image/*"]
+      "@thought-image/*": ["assets/posts/thought-image/*"],
+      "@dao/*": ["dao/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "styles/globals.js", "styles/mixinx.js", "styles/mixinx.js"],
