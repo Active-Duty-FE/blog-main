@@ -10,11 +10,11 @@ export const menus = [
   {
     label: 'FE Assets',
     href: '/post'
-  },
-  {
-    label: 'Thoughts',
-    href: '/thought'
   }
+  // {
+  //   label: 'Thoughts',
+  //   href: '/thought'
+  // }
   // {
   //   label: 'About',
   //   href: '/about'
