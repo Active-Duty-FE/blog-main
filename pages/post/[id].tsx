@@ -7,26 +7,24 @@ import { fetchAllPosts, fetchPost } from '@service/post'
 import { Post } from 'type'
 import StyledMarkdown from '@styles/styled-markdown'
 import PostList from './post-list/post-list'
+import MarkdownIt from 'markdown-it'
 import Wrapper from './style'
-import { promises as fsPromises } from 'fs'
 const path = require('path')
 interface IProps {
   children?: ReactNode
-  post: Post[]
+  post: Post
   posts: Post[]
 }
-type Params = {
-  title: string
-}
+
 const PostDetail: FC<IProps> = memo((props) => {
   const { post, posts } = props
+  const md = new MarkdownIt()
+  const content = md.render(post.content)
 
   return (
     <Layout>
       <Wrapper>
-        <StyledMarkdown>
-          <Markdown>{post[0].content}</Markdown>
-        </StyledMarkdown>
+        <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }}></StyledMarkdown>
         <div className="post-list">
           <h2 className="post-list-title">Menu</h2>
           <PostList posts={posts} />
@@ -36,8 +34,6 @@ const PostDetail: FC<IProps> = memo((props) => {
   )
 })
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  // const resultAll = await fsPromises.readdir(folderPath)
   const resultAll = await fetchAllPosts<Post[]>()
 
   return {
@@ -52,10 +48,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const result = await fetchPost<Post>(context.params?.id as string)
   const resultAll = await fetchAllPosts<Post[]>()
-  // const filePath = path.join(process.cwd(), 'assets/posts/fe', context.params?.title)
-  // const result = await fsPromises.readFile(filePath.toString() + '.md')
-  // const folderPath = path.join(process.cwd(), 'assets/posts/fe')
-  // const resultAll = await fsPromises.readdir(folderPath)
   return {
     props: {
       post: result.data,

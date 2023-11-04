@@ -10,7 +10,7 @@ import { Post } from 'type'
 const path = require('path')
 interface IProps {
   children?: ReactNode
-  posts: any[]
+  posts: Post[]
 }
 
 const Post: FC<IProps> = memo(({ posts }) => {
