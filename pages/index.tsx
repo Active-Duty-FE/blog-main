@@ -105,7 +105,7 @@ const About: FC<IProps> = memo(() => {
         <div className="down">
           <CodePreview tag="download" shake>
             <div className="resume" onClick={donwPopupClickHandler}>
-              resume.doc
+              RESUME
             </div>
           </CodePreview>
         </div>
@@ -114,10 +114,10 @@ const About: FC<IProps> = memo(() => {
             <Popup width={400} height={100} setDownPopupVisible={donwPopupClickHandler}>
               <div className="link-wrap">
                 <a className="link" href="/Ryuhyang.doc" download="김류향-프론트엔드-4년차">
-                  Download .doc file
+                  RESUME.doc
                 </a>
                 <a className="link" href="/Ryuhyang.pdf" download="김류향-프론트엔드-4년차">
-                  Download .pdf file
+                  RESUME.pdf
                 </a>
               </div>
             </Popup>
